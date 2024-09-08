@@ -1,0 +1,63 @@
+
+{% extends 'base.html' %}
+{% block body %}
+        
+      <div class="container">
+        <form action="/" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Todo point</label>
+            <input type="text" class="form-control" name="title" id="title" placeholder="list your points here">
+          </div>
+          <div class="mb-3">
+            <label for="desc" class="form-label" >Description</label>
+            <input type="text" class="form-control" name="desc" id="desc" placeholder="describe your point">
+           
+          </div>
+          <div>
+            <button type="submit" class="btn btn-dark">Submit</button>
+          </div>
+          </form>
+      </div>
+
+      <div class="container my-3">
+        <h1>Your list</h1>
+       
+            {% if allTodo|length==0 %}
+            <div class="alert alert-dark" role="alert">
+              NO record found
+            </div>
+              
+                
+              {% else %}
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Sno.</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+            {% for todo in allTodo %}
+            <tr>
+              <th scope="row">{{loop.index}}</th>
+              <td>{{todo.title}}</td>
+              <td>{{todo.desc}}</td>
+              <td>{{todo.date_created}}</td>
+              <td>
+                <a href="/delete/{{todo.sno}}" type="button" class="btn mx-2 btn-sm btn-outline-dark">Delete</a>
+                  <a href="/update/{{todo.sno}}" type="button" class="btn mx-2 btn-sm btn-outline-dark">Update</a>
+
+                  </td>
+              
+            </tr>
+        {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+      </div>
+      
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    {% endblock body %}
